@@ -80,20 +80,20 @@ printcol() {
 	print_description=1
 
 	# Parse the flags and their values
-	while [[ $# -gt 2 ]]; do
+	while [[ $# -gt 1 ]]; do
 		case $1 in
 			--header)
-				print_header=1
+				print_header=1;
 				shift;
 				;;
 			-h)
-				print_header=1
+				print_header=1;
 				shift;
 				;;
 			--header-only)
 				print_header_only=1;
 				print_header=1;
-				shift;
+				shift
 				;;
 			-c)
 				col_names=$2
