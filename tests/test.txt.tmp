@@ -1,12 +1,12 @@
-id	status
-1	processing
-2	processed
-3	processed
-4	processed
-5	processed
-6	processed
-7	processed
-8	processed
-9	processed
-10	processed
-11	processed
+id	status	valid
+1	processing	no
+2	processed	yes
+3	processed	yes
+4	processed	yes
+5	processed	yes
+6	processed	yes
+7	processed	yes
+8	processed	yes
+9	processed	yes
+10	processed	yes
+11	processed	yes

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Software Path
+BIN=$TSVTOOL/bin
 
 show_help() {
     echo "Usage: $0 <command> <arguments>"
@@ -423,7 +423,7 @@ toexcel() {
 			}; \
 		}' > $input_tmp
 
-	python3 python3/tsvtoexcel.py -i $input_tmp -o $output
+	python3 $BIN/python3/tsvtoexcel.py -i $input_tmp -o $output
 }
 
 if [ $# -eq 0 ]; then
