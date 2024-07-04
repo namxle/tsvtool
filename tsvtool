@@ -9,6 +9,7 @@ show_help() {
 	echo
     echo "	printcol					Print tsv col data with header"
     echo "	findincol					Find in tsv columns with terms"
+    echo "	toexcel						Convert to excel file"
 	echo
     exit 1
 }
