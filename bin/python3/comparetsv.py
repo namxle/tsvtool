@@ -3,6 +3,7 @@
 import argparse
 import logging
 import os
+import sys
 import time
 
 mode = "exact"
@@ -44,7 +45,7 @@ def run(file_a, file_b, key_column):
     b_records, b_fields = parse_file(file_b)
 
     a_key_index = a_fields.index(key_column)
-    b_key_index = a_fields.index(key_column)
+    b_key_index = b_fields.index(key_column)
 
     if len(a_records) != len(b_records) and mode == "exact":
         print("Different in length")
@@ -58,20 +59,40 @@ def run(file_a, file_b, key_column):
     print("Fields not exist in b:", str(fields_not_exist_in_b))
 
     # Check value
-    for i in range(len(a_records)):
-        for field in a_fields:
-            if mode == "exact":
-                if a_records[i][field] != b_records[i][field]:
-                    print(
-                        f"Different at index {i}, ID {a_records[i][a_fields[a_key_index]]}: {field}"
-                    )
-            else:
-                if field not in b_records[i]:
-                    pass
-                else:
+    if mode == "exact" or mode == "normal":
+        for i in range(len(a_records)):
+            for field in a_fields:
+                if mode == "exact":
                     if a_records[i][field] != b_records[i][field]:
                         print(
-                            f"Different at index {i}, ID {a_records[i][a_fields[a_key_index]]}: {field}"
+                            f"Different at index {i}, ID {a_records[i][a_fields[a_key_index]]}: {field}. Value {a_records[i][field]} != {b_records[i][field]}"
+                        )
+                else:
+                    if field not in b_records[i]:
+                        pass
+                    else:
+                        if a_records[i][field] != b_records[i][field]:
+                            print(
+                                f"Different at index {i}, ID {a_records[i][a_fields[a_key_index]]}: {field}. Value {a_records[i][field]} != {b_records[i][field]}"
+                            )
+    else:
+        for i in range(len(a_records)):
+            ak = a_records[i][a_fields[a_key_index]]
+            b_dicts = [
+                b_record
+                for b_record in b_records
+                if b_record[b_fields[b_key_index]] == ak
+            ]
+            if len(b_dicts) == 0:
+                print(f"ID {a_records[i][a_fields[a_key_index]]} not in b.")
+                continue
+            for field in a_fields:
+                if field not in b_dicts[0]:
+                    pass
+                else:
+                    if a_records[i][field] != b_dicts[0][field]:
+                        print(
+                            f"ID {a_records[i][a_fields[a_key_index]]}: {field}. { a_records[i][field]} != {b_dicts[0][field]}"
                         )
 
 
